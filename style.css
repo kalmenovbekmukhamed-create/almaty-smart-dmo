@@ -1,0 +1,401 @@
+/* =============================================================
+   ALMATY SMART DMO TERMINAL — Stylesheet
+   Aesthetic: Dark Anime / Netflix / Bloomberg overlay
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
+
+/* ---------- ROOT TOKENS ---------- */
+:root {
+    --bg-void:        #0D0D0D;
+    --bg-panel:       #141414;
+    --bg-elevated:    #1A1A1A;
+    --bg-hover:       #222222;
+    --border-faint:   #1F1F1F;
+    --border-bright:  #2A2A2A;
+
+    --accent-red:     #E50914;
+    --accent-red-dim: #8B0610;
+    --accent-green:   #00FF41;
+    --accent-green-dim:#008F24;
+    --accent-amber:   #FFB800;
+
+    --text-primary:   #E8E8E8;
+    --text-secondary: #888888;
+    --text-muted:     #555555;
+
+    --font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+}
+
+/* ---------- KILL STREAMLIT CHROME ---------- */
+#MainMenu        { visibility: hidden; }
+footer           { visibility: hidden; }
+header           { visibility: hidden; }
+.stDeployButton  { display: none; }
+[data-testid="stToolbar"]      { display: none; }
+[data-testid="stDecoration"]   { display: none; }
+[data-testid="stStatusWidget"] { display: none; }
+
+/* ---------- GLOBAL CANVAS ---------- */
+html, body, [class*="css"], .stApp {
+    background-color: var(--bg-void) !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-mono) !important;
+    font-feature-settings: "tnum", "zero", "ss01";
+    letter-spacing: 0.01em;
+}
+
+/* Scanline overlay — that subtle CRT-monitor breath */
+.stApp::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 255, 65, 0.015) 0px,
+            rgba(0, 255, 65, 0.015) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+    mix-blend-mode: screen;
+}
+
+/* Fine grid texture on the void */
+.stApp {
+    background-image:
+        linear-gradient(rgba(229, 9, 20, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(229, 9, 20, 0.025) 1px, transparent 1px) !important;
+    background-size: 48px 48px !important;
+    background-position: -1px -1px !important;
+}
+
+/* ---------- LAYOUT DENSITY ---------- */
+.block-container {
+    padding: 0.75rem 1.5rem 2rem 1.5rem !important;
+    max-width: 100% !important;
+}
+
+/* ---------- HEADINGS ---------- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-mono) !important;
+    color: var(--text-primary) !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    margin: 0.5rem 0 !important;
+}
+
+h1 {
+    font-size: 1.4rem !important;
+    border-left: 3px solid var(--accent-red);
+    padding-left: 0.75rem !important;
+    line-height: 1.1 !important;
+}
+
+h2 { font-size: 1.05rem !important; color: var(--text-secondary) !important; }
+h3 { font-size: 0.85rem !important; color: var(--accent-green) !important; }
+
+/* ---------- TEXT ---------- */
+p, span, div, label, li {
+    font-family: var(--font-mono) !important;
+    font-size: 0.82rem;
+}
+
+a {
+    color: var(--accent-red) !important;
+    text-decoration: none !important;
+    border-bottom: 1px dotted var(--accent-red-dim);
+}
+a:hover { color: var(--accent-green) !important; border-bottom-color: var(--accent-green); }
+
+code, pre {
+    background: var(--bg-elevated) !important;
+    color: var(--accent-green) !important;
+    border: 1px solid var(--border-bright);
+    padding: 0.15rem 0.4rem;
+    border-radius: 0 !important;
+    font-size: 0.78rem !important;
+}
+
+/* ---------- SIDEBAR ---------- */
+section[data-testid="stSidebar"] {
+    background-color: #0A0A0A !important;
+    border-right: 1px solid var(--accent-red-dim) !important;
+    box-shadow: 1px 0 0 var(--border-faint), 4px 0 24px rgba(229, 9, 20, 0.04);
+}
+
+section[data-testid="stSidebar"] > div {
+    padding-top: 1.5rem !important;
+}
+
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
+    border-left: 2px solid var(--accent-green);
+    padding-left: 0.6rem;
+    font-size: 0.78rem !important;
+    color: var(--accent-green) !important;
+    text-transform: uppercase;
+}
+
+section[data-testid="stSidebar"] label {
+    color: var(--text-secondary) !important;
+    font-size: 0.7rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+/* ---------- INPUTS / SELECTS / SLIDERS ---------- */
+.stTextInput > div > div > input,
+.stNumberInput > div > div > input,
+.stTextArea textarea,
+.stDateInput input {
+    background-color: var(--bg-panel) !important;
+    color: var(--accent-green) !important;
+    border: 1px solid var(--border-bright) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.82rem !important;
+    caret-color: var(--accent-red);
+}
+.stTextInput > div > div > input:focus,
+.stNumberInput > div > div > input:focus,
+.stTextArea textarea:focus,
+.stDateInput input:focus {
+    border-color: var(--accent-red) !important;
+    box-shadow: 0 0 0 1px var(--accent-red), 0 0 12px rgba(229, 9, 20, 0.3) !important;
+}
+
+/* SelectBox & Multiselect */
+.stSelectbox > div > div,
+.stMultiSelect > div > div {
+    background-color: var(--bg-panel) !important;
+    border: 1px solid var(--border-bright) !important;
+    border-radius: 0 !important;
+    color: var(--text-primary) !important;
+}
+.stMultiSelect [data-baseweb="tag"] {
+    background-color: var(--accent-red-dim) !important;
+    color: #FFFFFF !important;
+    border-radius: 0 !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.7rem !important;
+    text-transform: uppercase;
+}
+
+/* Sliders */
+.stSlider [data-baseweb="slider"] > div > div { background: var(--border-bright) !important; }
+.stSlider [data-baseweb="slider"] > div > div > div { background: var(--accent-red) !important; }
+.stSlider [role="slider"] {
+    background: var(--accent-green) !important;
+    border: 2px solid var(--bg-void) !important;
+    box-shadow: 0 0 8px var(--accent-green) !important;
+    border-radius: 0 !important;
+    height: 14px !important;
+    width: 14px !important;
+}
+
+/* Radio & Checkbox */
+.stRadio label, .stCheckbox label {
+    color: var(--text-primary) !important;
+    font-size: 0.78rem !important;
+}
+.stCheckbox [data-baseweb="checkbox"] > div:first-child {
+    background-color: var(--bg-panel) !important;
+    border: 1px solid var(--border-bright) !important;
+    border-radius: 0 !important;
+}
+
+/* ---------- BUTTONS ---------- */
+.stButton > button {
+    background: transparent !important;
+    color: var(--accent-red) !important;
+    border: 1px solid var(--accent-red-dim) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.15em !important;
+    padding: 0.5rem 1.2rem !important;
+    transition: all 0.15s ease !important;
+    position: relative;
+}
+.stButton > button:hover {
+    background: var(--accent-red) !important;
+    color: var(--bg-void) !important;
+    border-color: var(--accent-red) !important;
+    box-shadow: 0 0 16px rgba(229, 9, 20, 0.5) !important;
+}
+.stButton > button:active { transform: translate(1px, 1px); }
+
+/* ---------- METRICS ---------- */
+[data-testid="stMetric"] {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-bright);
+    border-left: 2px solid var(--accent-green);
+    padding: 0.6rem 0.9rem;
+    position: relative;
+}
+[data-testid="stMetric"]::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    width: 6px; height: 6px;
+    background: var(--accent-green);
+    box-shadow: 0 0 6px var(--accent-green);
+    margin: 4px;
+    animation: pulse 2s infinite;
+}
+[data-testid="stMetricLabel"] {
+    color: var(--text-secondary) !important;
+    font-size: 0.65rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+[data-testid="stMetricValue"] {
+    color: var(--accent-green) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    font-variant-numeric: tabular-nums;
+}
+[data-testid="stMetricDelta"] { font-size: 0.7rem !important; }
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.3; }
+}
+
+/* ---------- DATAFRAME ---------- */
+.stDataFrame, [data-testid="stDataFrame"] {
+    border: 1px solid var(--border-bright);
+    background: var(--bg-panel);
+}
+.stDataFrame table {
+    font-family: var(--font-mono) !important;
+    font-size: 0.75rem !important;
+    color: var(--text-primary) !important;
+}
+.stDataFrame thead tr th {
+    background: #050505 !important;
+    color: var(--accent-red) !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--accent-red-dim) !important;
+}
+.stDataFrame tbody tr:hover { background: var(--bg-hover) !important; }
+.stDataFrame tbody tr td { border-color: var(--border-faint) !important; }
+
+/* ---------- TABS ---------- */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 0;
+    background: transparent;
+    border-bottom: 1px solid var(--border-bright);
+}
+.stTabs [data-baseweb="tab"] {
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    border-radius: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    padding: 0.5rem 1.2rem !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+.stTabs [aria-selected="true"] {
+    color: var(--accent-red) !important;
+    border-bottom-color: var(--accent-red) !important;
+    background: rgba(229, 9, 20, 0.05) !important;
+}
+
+/* ---------- EXPANDER ---------- */
+.streamlit-expanderHeader, [data-testid="stExpander"] summary {
+    background: var(--bg-panel) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-bright) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-mono) !important;
+    text-transform: uppercase;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.1em;
+}
+[data-testid="stExpander"] {
+    border: 1px solid var(--border-bright);
+    border-radius: 0 !important;
+}
+
+/* ---------- ALERTS ---------- */
+.stAlert {
+    border-radius: 0 !important;
+    border-left: 3px solid !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.78rem !important;
+}
+[data-baseweb="notification"] {
+    border-radius: 0 !important;
+    background: var(--bg-panel) !important;
+}
+
+/* ---------- DIVIDERS ---------- */
+hr {
+    border: none !important;
+    border-top: 1px dashed var(--border-bright) !important;
+    margin: 0.8rem 0 !important;
+}
+
+/* ---------- SCROLLBAR ---------- */
+::-webkit-scrollbar         { width: 6px; height: 6px; }
+::-webkit-scrollbar-track   { background: var(--bg-void); }
+::-webkit-scrollbar-thumb   { background: var(--accent-red-dim); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-red); }
+
+/* ---------- CUSTOM CLASSES ---------- */
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(90deg, rgba(229,9,20,0.08) 0%, transparent 100%);
+    border: 1px solid var(--border-bright);
+    border-left: 3px solid var(--accent-red);
+    margin-bottom: 1rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+.terminal-header .ticker  { color: var(--accent-red); font-weight: 700; }
+.terminal-header .status  { color: var(--accent-green); }
+.terminal-header .status::before {
+    content: "●";
+    margin-right: 0.4rem;
+    animation: pulse 1.5s infinite;
+}
+
+.data-strip {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-faint);
+    font-size: 0.72rem;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.data-strip span { color: var(--text-muted); }
+.data-strip b    { color: var(--accent-green); font-weight: 600; }
+.data-strip .neg { color: var(--accent-red); }
+
+.blink::after {
+    content: "_";
+    animation: blink 1s steps(2) infinite;
+    color: var(--accent-red);
+}
+@keyframes blink {
+    0%, 50%   { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
