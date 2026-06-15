@@ -1,0 +1,27 @@
+# ── Node / frontend build artifacts ──
+node_modules/
+dist/
+dist-ssr/
+.vercel/
+*.local
+*.log
+npm-debug.log*
+
+# ── Python / Streamlit ──
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ── Secrets ──
+.env
+.env.*
+
+# ── OS / editor ──
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
